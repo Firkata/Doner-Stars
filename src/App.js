@@ -1,22 +1,35 @@
 import React from "react";
-import logo from "./logo.svg";
 import Facebook from "./components/Facebook/Facebook";
-import "./App.css";
 import ShopList from "./components/ShopList/ShopList";
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { QueryParamProvider } from "use-query-params";
+import logo from "./logo.svg";
+import "./App.css";
 
-function App() {
+// function App() {
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <h2>Welcome to Doner Stars</h2>
+//         <p>Join the Ranking of the best Doners in Sofia</p>
+//         <Facebook />
+//         <ShopList />
+//         {/* <p>
+//           Edit <code>src/App.js</code> and save to reload.
+//         </p> */}
+//       </header>
+//     </div>
+//   );
+// }
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h2>Welcome to Doner Stars</h2>
-        <p>Join the Ranking of the best Doners in Sofia</p>
-        <Facebook />
-        <ShopList />
-        {/* <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p> */}
-      </header>
-    </div>
+    <QueryParamProvider ReactRouterRoute={Route}>
+      <Switch>
+        <Route component={Facebook} exact path="/login" />
+        
+      </Switch>
+    </QueryParamProvider>
   );
 }
 
