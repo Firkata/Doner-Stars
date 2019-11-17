@@ -8,6 +8,8 @@
 
 .App-header {
   background-color: #282c34;
+  opacity: 1;
+  /* background-image: url("https://previews.123rf.com/images/foodandmore/foodandmore1705/foodandmore170500112/77253617-turkish-doner-kebab-on-golden-toasted-pita-bread-filled-with-rotisserie-roasted-meat-and-fresh-salad.jpg"); */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
