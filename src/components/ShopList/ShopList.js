@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "tabler-react";
 import { db } from "../../firebase";
+import ShopCard from '../ShopCard/ShopCard';
+import { Grid, Card, Button } from 'tabler-react';
 
 const ShopList = () => {
   const [shops, setShops] = useState([]);
 
   const fetchShops = () => {
-    // shopsRef.on("value", snapshot => {
-    //     let shops = snapshot.val;
-    // })
-    db.collection("shops")
+    db.collection("donerShops")
       .get()
       .then(querySnapshot => {
         let data = querySnapshot.docs.map(doc => doc.data());
         setShops(data);
-        // return console.log(data);
       });
   };
 
@@ -22,16 +19,20 @@ const ShopList = () => {
     fetchShops();
   }, []);
 
-  console.log(shops);
   return (
     <div>
-      {/* <button onClick={() => fetchShops()}>Shops</button> */}
-      {shops.map(shop => (
-        <ul>
-          <li>{shop}</li>
-        </ul>
-      ))}
-      <Card />
+      <Grid.Row>
+        {shops.map(shop => (
+        <Grid.Col key={shop.name} lg={6}>
+            <ShopCard 
+                name={shop.name} 
+                location={shop.location}
+                rating={shop.rating}
+                submitedRatings={shop.submittedRatings}
+            />
+        </Grid.Col>
+        ))}
+      </Grid.Row>
     </div>
   );
 };

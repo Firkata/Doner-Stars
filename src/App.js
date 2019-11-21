@@ -7,11 +7,6 @@ import firebase from 'firebase';
 import {StyledFirebaseAuth} from 'react-firebaseui'
 import "./App.css";
 
-// firebase.initializeApp({
-//   apiKey: "AIzaSyARpNNPyNbkTO3EUuKK_4E8PuHDuqjIJog",
-//   authDomain: "doner-stars.firebaseapp.com"
-// })
-
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const uiConfig = {
@@ -27,7 +22,7 @@ const App = () => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       setIsSignedIn(!!user);
-      console.log("user", !!user);
+      // console.log("user", !!user);
     })
   })
 
@@ -35,15 +30,19 @@ const App = () => {
     <div className="App">
       {isSignedIn ? (
       <div>
-        <div>Singed In!</div>
         <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
         <h1>Welcome {firebase.auth().currentUser.displayName}</h1>
         <img alt="profile_pic" src={firebase.auth().currentUser.photoURL} />
+        <ShopList />
       </div>
       ) : ( 
-      <StyledFirebaseAuth 
-      uiConfig={uiConfig}
-      firebaseAuth={firebase.auth()}/>
+      <header className="App-header">
+        <h2>Welcome to Doner Stars</h2>
+        <p>Join the Ranking of the best Doners in Sofia</p>
+        <StyledFirebaseAuth 
+        uiConfig={uiConfig}
+        firebaseAuth={firebase.auth()}/>
+      </header>
       )}
     </div>
   );
