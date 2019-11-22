@@ -1,8 +1,15 @@
-.CardContainer{
+.CardContainer {
   border: 1px solid #d0d0d0;
   border-radius: 10px;
   height: 30vh;
   width: 45vh;
   margin-left: 30px;
   margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.RatingRow {
+  width: 50%;
 }
