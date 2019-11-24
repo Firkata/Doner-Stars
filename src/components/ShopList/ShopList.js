@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
-import ShopCard from '../ShopCard/ShopCard';
+import ShopCard from '../ShopCard';
 import { Grid, Card, Button } from 'tabler-react';
 
 const ShopList = () => {
@@ -10,7 +10,13 @@ const ShopList = () => {
     db.collection("donerShops")
       .get()
       .then(querySnapshot => {
-        let data = querySnapshot.docs.map(doc => doc.data());
+        let data = querySnapshot.docs.map(doc => {
+          let document = doc.data();
+          document.id = doc.id;
+          // console.log(document)
+          return document;
+        });
+        // console.log(data)
         setShops(data);
       });
   };
@@ -25,10 +31,11 @@ const ShopList = () => {
         {shops.map(shop => (
         <Grid.Col key={shop.name} lg={6}>
             <ShopCard 
+                id={shop.id}
                 name={shop.name} 
                 location={shop.location}
                 rating={shop.rating}
-                submitedRatings={shop.submittedRatings}
+                submittedRatings={shop.submittedRatings}
             />
         </Grid.Col>
         ))}
