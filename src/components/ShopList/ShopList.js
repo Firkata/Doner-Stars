@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
-import ShopCard from '../ShopCard';
-import { Grid, Card, Button } from 'tabler-react';
+import ShopCard from "../ShopCard";
+import { Grid, Card, Button } from "tabler-react";
 
 const ShopList = () => {
   const [shops, setShops] = useState([]);
@@ -29,15 +29,16 @@ const ShopList = () => {
     <div>
       <Grid.Row>
         {shops.map(shop => (
-        <Grid.Col key={shop.name} lg={6}>
-            <ShopCard 
-                id={shop.id}
-                name={shop.name} 
-                location={shop.location}
-                rating={shop.rating}
-                submittedRatings={shop.submittedRatings}
+          <Grid.Col key={shop.name} lg={6}>
+            <ShopCard
+              id={shop.id}
+              name={shop.name}
+              location={shop.location}
+              rating={shop.rating}
+              submittedRatings={shop.submittedRatings}
+              fetch={fetchShops}
             />
-        </Grid.Col>
+          </Grid.Col>
         ))}
       </Grid.Row>
     </div>
