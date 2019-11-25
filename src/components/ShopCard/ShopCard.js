@@ -4,22 +4,17 @@ import { Grid, Card, Button } from "tabler-react";
 import styles from "./ShopCard.module.css";
 
 const ShopCard = data => {
-  const submitRating = (newRating, currentRating, submittedRatings) => {
-    let ratingcalc = newRating + currentRating * 5;
-    let dbcount = submittedRatings + 1;
-
-    console.log(ratingcalc);
-    console.log(dbcount);
-    const dbrating = Math.ceil(ratingcalc / dbcount);
-
-    console.log("rating");
-    console.log(dbrating);
+  const submitRating = (newRating, rating) => {
+    rating[newRating] = rating[newRating] + 1;
+    let ratingSum = (5*rating["fiveStars"] + 4*rating["fourStars"] + 3*rating["threeStars"] + 2*rating["twoStars"] + 1*rating["oneStar"]);
+    let ratingCount = (rating["fiveStars"] + rating["fourStars"] + rating["threeStars"] +rating["twoStars"] +rating["oneStar"]);
+    let avgRating = Math.round(ratingSum / ratingCount);
 
     db.collection("donerShops")
       .doc(data.id)
       .update({
-        rating: dbrating,
-        submittedRatings: dbcount
+        rating: rating,
+        averageRating: avgRating
       })
       .then(() => {
         console.log("New rating added");
@@ -34,40 +29,39 @@ const ShopCard = data => {
     <Card className={styles.CardContainer}>
       <p>{data.name}</p>
       <p>{data.location}</p>
-      <p>{data.rating}</p>
-      <p>{data.submittedRatings}</p>
+      <p>{data.averageRating}</p>
       <Grid.Row className={styles.RatingRow}>
         <Grid.Col lg="2.5">
           <button
-            onClick={() => submitRating(1, data.rating, data.submittedRatings)}
+            onClick={() => submitRating("oneStar", data.rating)}
           >
             1
           </button>
         </Grid.Col>
         <Grid.Col lg="2.5">
           <button
-            onClick={() => submitRating(2, data.rating, data.submittedRatings)}
+            onClick={() => submitRating("twoStars", data.rating, data.submittedRatings)}
           >
             2
           </button>
         </Grid.Col>
         <Grid.Col lg="2.5">
           <button
-            onClick={() => submitRating(3, data.rating, data.submittedRatings)}
+            onClick={() => submitRating("threeStars", data.rating, data.submittedRatings)}
           >
             3
           </button>
         </Grid.Col>
         <Grid.Col lg="2.5">
           <button
-            onClick={() => submitRating(4, data.rating, data.submittedRatings)}
+            onClick={() => submitRating("fourStars", data.rating, data.submittedRatings)}
           >
             4
           </button>
         </Grid.Col>
-        <Grid.Col lg="2.5">
+        <Grid.Col lg="2">
           <button
-            onClick={() => submitRating(5, data.rating, data.submittedRatings)}
+            onClick={() => submitRating("fiveStars", data.rating, data.submittedRatings)}
           >
             5
           </button>
