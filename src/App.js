@@ -7,6 +7,7 @@ import firebase from "firebase";
 import { StyledFirebaseAuth } from "react-firebaseui";
 import "tabler-react/dist/Tabler.css";
 import "./App.css";
+import Authorized from './components/Authorized';
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -28,22 +29,17 @@ const App = () => {
   return (
     <div className="App">
       {isSignedIn ? (
-        <div>
-          <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
-          <h1>Welcome {firebase.auth().currentUser.displayName}</h1>
-          <img alt="profile_pic" src={firebase.auth().currentUser.photoURL} />
-          <ShopList />
-        </div>
+        <Authorized />
       ) : (
-        <header className="App-header">
-          <h2>Welcome to Doner Stars</h2>
-          <p>Join the Ranking of the best Doners in Sofia</p>
-          <StyledFirebaseAuth
-            uiConfig={uiConfig}
-            firebaseAuth={firebase.auth()}
-          />
-        </header>
-      )}
+          <header className="App-header">
+            <h2>Welcome to Doner Stars</h2>
+            <p>Join the Ranking of the best Doners in Sofia</p>
+            <StyledFirebaseAuth
+              uiConfig={uiConfig}
+              firebaseAuth={firebase.auth()}
+            />
+          </header>
+        )}
     </div>
   );
 };

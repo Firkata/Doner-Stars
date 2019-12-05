@@ -1,0 +1,8 @@
+.ProfileImage{
+    border-radius: 50%;
+}
+
+.SignOutButton{
+    border-radius: 5%;
+    font-size: medium;
+}
