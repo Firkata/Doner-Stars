@@ -7,7 +7,7 @@ import firebase from "firebase";
 import { StyledFirebaseAuth } from "react-firebaseui";
 import "tabler-react/dist/Tabler.css";
 import "./App.css";
-import Authorized from './components/Authorized';
+import Authorized from "./components/Authorized";
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -31,15 +31,15 @@ const App = () => {
       {isSignedIn ? (
         <Authorized />
       ) : (
-          <header className="App-header">
-            <h2>Welcome to Doner Stars</h2>
-            <p>Join the Ranking of the best Doners in Sofia</p>
-            <StyledFirebaseAuth
-              uiConfig={uiConfig}
-              firebaseAuth={firebase.auth()}
-            />
-          </header>
-        )}
+        <header className="App-header">
+          <h2>Welcome to Doner Stars</h2>
+          <p>Join the Ranking of the best Doners in Sofia</p>
+          <StyledFirebaseAuth
+            uiConfig={uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        </header>
+      )}
     </div>
   );
 };

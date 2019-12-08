@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 import ShopCard from "../ShopCard";
-import { Grid, Card, Button } from "tabler-react";
+import { Grid } from "tabler-react";
 
 const ShopList = () => {
   const [shops, setShops] = useState([]);
