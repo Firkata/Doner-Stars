@@ -29,7 +29,7 @@ const ShopList = () => {
     <div>
       <Grid.Row>
         {shops.map(shop => (
-          <Grid.Col key={shop.id} lg={6}>
+          <Grid.Col key={shop.id} lg={4}>
             <ShopCard
               id={shop.id}
               name={shop.name}
@@ -37,6 +37,7 @@ const ShopList = () => {
               rating={shop.rating}
               averageRating={shop.averageRating}
               fetch={fetchShops}
+              users={shop.users}
             />
           </Grid.Col>
         ))}
