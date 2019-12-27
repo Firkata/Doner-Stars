@@ -153,7 +153,7 @@ const ShopCard = data => {
             width="35px"
           />
           <p>
-            <b>6</b>
+            <b>7</b>
           </p>
         </Grid.Col>
       </Grid.Row>
