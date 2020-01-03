@@ -3,8 +3,11 @@ import { db } from "../../firebase";
 import firebase from "firebase";
 import { Grid, Card } from "tabler-react";
 import styles from "./ShopCard.module.css";
+import CreateShop from "../CreateShop/CreateShop";
 
 const ShopCard = data => {
+  // console.log(data)
+
   const submitRating = (newRating, rating, newRatingNum) => {
     // debugger;
     let users = data.users;
@@ -52,20 +55,20 @@ const ShopCard = data => {
       rating["oneStar"];
     let avgRating = Math.round(ratingSum / ratingCount);
     console.log(avgRating);
-    // db.collection("donerShops")
-    //   .doc(data.id)
-    //   .update({
-    //     rating: rating,
-    //     averageRating: avgRating,
-    //     users: users
-    //   })
-    //   .then(() => {
-    //     console.log("New rating added");
-    //     data.fetch();
-    //   })
-    //   .catch(error => {
-    //     console.log("Error adding rating", error);
-    //   });
+    db.collection("donerShops")
+      .doc(data.id)
+      .update({
+        rating: rating,
+        averageRating: avgRating,
+        users: [currentUser]
+      })
+      .then(() => {
+        console.log("New rating added");
+        data.fetch();
+      })
+      .catch(error => {
+        console.log("Error adding rating", error);
+      });
   };
 
   //   useEffect(() => {
@@ -80,6 +83,7 @@ const ShopCard = data => {
 
   return (
     <Card className={styles.CardContainer}>
+      <CreateShop />
       <p>
         <b>{data.name}</b>
       </p>
@@ -122,7 +126,6 @@ const ShopCard = data => {
             src="/gold_star-512.png"
           />
         </Grid.Col>
-
         <Grid.Col lg="2.5">
           <img
             alt="s"

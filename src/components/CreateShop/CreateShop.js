@@ -1,15 +1,23 @@
 import React from "react";
+import firebase from "firebase";
 import { db } from "../../firebase";
 
 const CreateShop = () => {
   const createShop = () => {
-    db.collection("shops")
-      .doc("Sofia")
+    db.collection("donerShops")
+      .doc("Sofia123")
       .set({
-        name: "Habibi",
+        averageRating: 5,
         location: "Studentski grad",
-        rating: 2,
-        submitedRatings: 1
+        name: "Habibi",
+        rating: {
+          oneStar: 0,
+          twoStars: 0,
+          threeStars: 0,
+          fourStars: 0,
+          fiveStars: 1
+        },
+        users: [{ rating: 5, userId: firebase.auth().currentUser.uid }]
       })
       .then(() => {
         console.log("Shop created successfully");
@@ -18,7 +26,7 @@ const CreateShop = () => {
         console.log("Error creating shop", error);
       });
   };
-  return <div></div>;
+  return <button onClick={() => createShop()}>+</button>;
 };
 
 export default CreateShop;
