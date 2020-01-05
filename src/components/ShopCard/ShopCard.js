@@ -1,12 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { db } from "../../firebase";
 import firebase from "firebase";
 import { Grid, Card } from "tabler-react";
 import styles from "./ShopCard.module.css";
 import CreateShop from "../CreateShop/CreateShop";
+import ReactMapGL, { Marker } from "react-map-gl";
+import SimpleModalLauncher from "../SimpleModalLauncher/SimpleModalLauncher";
 
 const ShopCard = data => {
-  // console.log(data)
+  const [viewport, setViewport] = useState({
+    latitude: data.latitude,
+    longitude: data.longitude,
+    width: "50vw",
+    height: "60vh",
+    zoom: 16
+  });
 
   const submitRating = (newRating, rating, newRatingNum) => {
     // debugger;
@@ -36,8 +44,6 @@ const ShopCard = data => {
           break;
       }
       currentUser.rating = newRatingNum;
-      //   const index = users.indexOf(currentUser);
-      //   users[index] = currentUser;
     }
 
     rating[newRating] = rating[newRating] + 1;
@@ -71,26 +77,32 @@ const ShopCard = data => {
       });
   };
 
-  //   useEffect(() => {
-  //     console.log(firebase.auth().currentUser.uid);
-  //     let currentUser = data.users.find(
-  //       user => user.userId === firebase.auth().currentUser.uid
-  //     );
-  //     currentUser.rating = 5;
-
-  //     console.log(currentUser);
-  //   });
-
   return (
     <Card className={styles.CardContainer}>
       <CreateShop />
       <p>
         <b>{data.name}</b>
       </p>
-      <p>
+      <div>
         <img alt="Location" className="mb-3" src="/location.png" width="25px" />
         <b>{data.location}</b>
-      </p>
+
+        <SimpleModalLauncher buttonLabel="Show on map">
+          <ReactMapGL
+            {...viewport}
+            mapboxApiAccessToken={
+              "pk.eyJ1IjoiZmlya2F0YSIsImEiOiJjazR6eXg0MXEwYmZqM21uc3ZsZndlbnBjIn0.pxkqXlENUAR4sLN6d74I1w"
+            }
+            onViewportChange={viewport => {
+              setViewport(viewport);
+            }}
+          >
+            <Marker latitude={data.latitude} longitude={data.longitude}>
+              <img alt="Location" src="/location.png" width="40px" />
+            </Marker>
+          </ReactMapGL>
+        </SimpleModalLauncher>
+      </div>
       <img alt="shop" src="/aladin_foods.jpeg" />
       <Grid.Row className={styles.RatingRow}>
         <Grid.Col lg="2.5">
@@ -141,7 +153,7 @@ const ShopCard = data => {
             alt="Big Doner"
             className="mt-3"
             src="/big_doner.jpg"
-            width="80px"
+            width="130px"
           />
           <p>
             <b>5</b>

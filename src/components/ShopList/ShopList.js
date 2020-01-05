@@ -34,6 +34,8 @@ const ShopList = () => {
               id={shop.id}
               name={shop.name}
               location={shop.location}
+              latitude={shop.latitude}
+              longitude={shop.longitude}
               rating={shop.rating}
               averageRating={shop.averageRating}
               fetch={fetchShops}

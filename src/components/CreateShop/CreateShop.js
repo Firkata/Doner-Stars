@@ -8,7 +8,9 @@ const CreateShop = () => {
       .doc("Sofia123")
       .set({
         averageRating: 5,
+        latitude: 42.651962,
         location: "Studentski grad",
+        longitude: 23.34473,
         name: "Habibi",
         rating: {
           oneStar: 0,
