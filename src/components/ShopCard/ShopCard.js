@@ -21,6 +21,11 @@ const ShopCard = data => {
     let currentUser = users.find(
       user => user.userId === firebase.auth().currentUser.uid
     );
+    if (currentUser.votesauce === true) {
+      alert("You have already voted");
+      return;
+    }
+
     currentUser.votesauce = true;
     db.collection("donerShops")
       .doc(data.id)
@@ -42,6 +47,11 @@ const ShopCard = data => {
     let currentUser = users.find(
       user => user.userId === firebase.auth().currentUser.uid
     );
+    if (currentUser.votedoner === true) {
+      alert("You have already voted");
+      return;
+    }
+
     currentUser.votedoner = true;
     db.collection("donerShops")
       .doc(data.id)
@@ -196,32 +206,50 @@ const ShopCard = data => {
       </Grid.Row>
 
       {/* sauce and size rating */}
-      <Grid.Row>
-        <Grid.Col>
+
+      <Grid.Row className="d-flex align-items-center mt-5 w-100">
+        <Grid.Col lg="1" />
+
+        <Grid.Col lg="8">
+          <b>Vote if this place has Big doners</b>
+        </Grid.Col>
+        <Grid.Col className="px-0" lg="1">
           <img
             alt="Big Doner"
-            className="mt-3"
+            className={styles.DonerSize}
             onClick={() => submitSizeRating()}
-            src="/big_doner.jpg"
-            width="130px"
+            src="/big_doner.png"
+            width="80px"
           />
-          <p>
-            <b>{data.bigdoner}</b>
+        </Grid.Col>
+        <Grid.Col className="d-flex align-items-center px-0" lg="1">
+          <p className="float-left px-0 mb-0 ">
+            <b>({data.bigdoner})</b>
           </p>
         </Grid.Col>
-        <Grid.Col></Grid.Col>
-        <Grid.Col>
+        <Grid.Col lg="1" />
+      </Grid.Row>
+
+      <Grid.Row className="d-flex align-items-center mt-5 w-100">
+        <Grid.Col lg="1" />
+        <Grid.Col lg="8">
+          <b>Vote if this place has Amazing sauce</b>
+        </Grid.Col>
+        <Grid.Col className="px-0" lg="1">
           <img
             alt="Best Sauce"
-            className="mt-3"
+            className={styles.Sauce}
             onClick={() => submitSauceRating()}
             src="/best_sauce.png"
             width="35px"
           />
-          <p>
-            <b>{data.bestsauce}</b>
+        </Grid.Col>
+        <Grid.Col className="d-flex align-items-center px-0" lg="1">
+          <p className="float-left px-0 mb-0 ">
+            <b>({data.bestsauce})</b>
           </p>
         </Grid.Col>
+        <Grid.Col lg="1" />
       </Grid.Row>
     </Card>
   );
