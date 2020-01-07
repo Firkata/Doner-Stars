@@ -16,6 +16,48 @@ const ShopCard = data => {
     zoom: 16
   });
 
+  const submitSauceRating = () => {
+    let users = data.users;
+    let currentUser = users.find(
+      user => user.userId === firebase.auth().currentUser.uid
+    );
+    currentUser.votesauce = true;
+    db.collection("donerShops")
+      .doc(data.id)
+      .update({
+        bestsauce: data.bestsauce + 1,
+        users: [currentUser]
+      })
+      .then(() => {
+        console.log("New rating added");
+        data.fetch();
+      })
+      .catch(error => {
+        console.log("Error adding rating", error);
+      });
+  };
+
+  const submitSizeRating = () => {
+    let users = data.users;
+    let currentUser = users.find(
+      user => user.userId === firebase.auth().currentUser.uid
+    );
+    currentUser.votedoner = true;
+    db.collection("donerShops")
+      .doc(data.id)
+      .update({
+        bigdoner: data.bigdoner + 1,
+        users: [currentUser]
+      })
+      .then(() => {
+        console.log("New rating added");
+        data.fetch();
+      })
+      .catch(error => {
+        console.log("Error adding rating", error);
+      });
+  };
+
   const submitRating = (newRating, rating, newRatingNum) => {
     // debugger;
     let users = data.users;
@@ -79,10 +121,12 @@ const ShopCard = data => {
 
   return (
     <Card className={styles.CardContainer}>
-      <CreateShop />
+      {/* <CreateShop /> */}
       <p>
         <b>{data.name}</b>
       </p>
+
+      {/* location */}
       <div>
         <img alt="Location" className="mb-3" src="/location.png" width="25px" />
         <b>{data.location}</b>
@@ -103,7 +147,10 @@ const ShopCard = data => {
           </ReactMapGL>
         </SimpleModalLauncher>
       </div>
+
       <img alt="shop" src="/aladin_foods.jpeg" />
+
+      {/* five star rating */}
       <Grid.Row className={styles.RatingRow}>
         <Grid.Col lg="2.5">
           <img
@@ -147,16 +194,19 @@ const ShopCard = data => {
           />
         </Grid.Col>
       </Grid.Row>
+
+      {/* sauce and size rating */}
       <Grid.Row>
         <Grid.Col>
           <img
             alt="Big Doner"
             className="mt-3"
+            onClick={() => submitSizeRating()}
             src="/big_doner.jpg"
             width="130px"
           />
           <p>
-            <b>5</b>
+            <b>{data.bigdoner}</b>
           </p>
         </Grid.Col>
         <Grid.Col></Grid.Col>
@@ -164,11 +214,12 @@ const ShopCard = data => {
           <img
             alt="Best Sauce"
             className="mt-3"
+            onClick={() => submitSauceRating()}
             src="/best_sauce.png"
             width="35px"
           />
           <p>
-            <b>7</b>
+            <b>{data.bestsauce}</b>
           </p>
         </Grid.Col>
       </Grid.Row>
