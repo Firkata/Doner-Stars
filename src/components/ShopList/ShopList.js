@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 import ShopCard from "../ShopCard";
-import { Grid } from "tabler-react";
+import { Grid, Button } from "tabler-react";
 
 const ShopList = () => {
   const [shops, setShops] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchShops = () => {
     db.collection("donerShops")
@@ -21,30 +22,40 @@ const ShopList = () => {
       });
   };
 
+  const searchShop = () => {
+    setSearchTerm("Aladin Foods");
+  };
+
   useEffect(() => {
     fetchShops();
   }, []);
 
   return (
     <div>
+      <div>
+        {/* <input onChange={e => searchShop(e)} placeholder=" Search shop..." /> */}
+        <Button onClick={() => searchShop()}>Search</Button>
+      </div>
       <Grid.Row>
-        {shops.map(shop => (
-          <Grid.Col key={shop.id} lg={4}>
-            <ShopCard
-              id={shop.id}
-              name={shop.name}
-              location={shop.location}
-              latitude={shop.latitude}
-              longitude={shop.longitude}
-              bestsauce={shop.bestsauce}
-              bigdoner={shop.bigdoner}
-              rating={shop.rating}
-              averageRating={shop.averageRating}
-              fetch={fetchShops}
-              users={shop.users}
-            />
-          </Grid.Col>
-        ))}
+        {shops
+          .filter(shop => (searchTerm ? shop.name === searchTerm : true))
+          .map(shop => (
+            <Grid.Col key={shop.id} lg={4}>
+              <ShopCard
+                id={shop.id}
+                name={shop.name}
+                location={shop.location}
+                latitude={shop.latitude}
+                longitude={shop.longitude}
+                bestsauce={shop.bestsauce}
+                bigdoner={shop.bigdoner}
+                rating={shop.rating}
+                averageRating={shop.averageRating}
+                fetch={fetchShops}
+                users={shop.users}
+              />
+            </Grid.Col>
+          ))}
       </Grid.Row>
     </div>
   );
