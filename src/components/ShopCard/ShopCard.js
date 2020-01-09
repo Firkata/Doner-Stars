@@ -205,13 +205,28 @@ const ShopCard = data => {
         </Grid.Col>
       </Grid.Row>
 
+      <Grid.Row className="w-100 mt-5">
+        <Grid.Col lg="6">
+          <b className="float-right">Working Days:</b>
+        </Grid.Col>
+        <Grid.Col className="d-flex" lg="6">
+          <b>Monday - Friday </b>
+        </Grid.Col>
+      </Grid.Row>
+      <Grid.Row className="w-100 mt-4">
+        <Grid.Col lg="6">
+          <b className="float-right">Working Hours:</b>
+        </Grid.Col>
+        <Grid.Col className="d-flex" lg="6">
+          <b>12-18pm </b>
+        </Grid.Col>
+      </Grid.Row>
+
       {/* sauce and size rating */}
 
       <Grid.Row className="d-flex align-items-center mt-5 w-100">
-        <Grid.Col lg="1" />
-
-        <Grid.Col lg="8">
-          <b>Vote if this place has Big doners</b>
+        <Grid.Col className="ml-5" lg="3">
+          <b>BIG DONERS</b>
         </Grid.Col>
         <Grid.Col className="px-0" lg="1">
           <img
@@ -227,10 +242,26 @@ const ShopCard = data => {
             <b>({data.bigdoner})</b>
           </p>
         </Grid.Col>
-        <Grid.Col lg="1" />
+        <Grid.Col lg="4">
+          <b>AMAZING SAUCE</b>
+        </Grid.Col>
+        <Grid.Col className="px-0" lg="1">
+          <img
+            alt="Best Sauce"
+            className={styles.Sauce}
+            onClick={() => submitSauceRating()}
+            src="/best_sauce.png"
+            width="35px"
+          />
+        </Grid.Col>
+        <Grid.Col className="d-flex align-items-center px-0" lg="1">
+          <p className="float-left px-0 mb-0 ">
+            <b>({data.bestsauce})</b>
+          </p>
+        </Grid.Col>
       </Grid.Row>
 
-      <Grid.Row className="d-flex align-items-center mt-5 w-100">
+      {/* <Grid.Row className="d-flex align-items-center mt-5 w-100">
         <Grid.Col lg="1" />
         <Grid.Col lg="8">
           <b>Vote if this place has Amazing sauce</b>
@@ -250,7 +281,7 @@ const ShopCard = data => {
           </p>
         </Grid.Col>
         <Grid.Col lg="1" />
-      </Grid.Row>
+      </Grid.Row> */}
     </Card>
   );
 };

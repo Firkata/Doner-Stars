@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 import ShopCard from "../ShopCard";
-import { Grid, Button } from "tabler-react";
+import { Grid } from "tabler-react";
 
 const ShopList = () => {
   const [shops, setShops] = useState([]);
@@ -22,8 +22,8 @@ const ShopList = () => {
       });
   };
 
-  const searchShop = () => {
-    setSearchTerm("Aladin Foods");
+  const searchShop = e => {
+    setSearchTerm(e.target.value);
   };
 
   useEffect(() => {
@@ -32,13 +32,13 @@ const ShopList = () => {
 
   return (
     <div>
-      <div>
-        {/* <input onChange={e => searchShop(e)} placeholder=" Search shop..." /> */}
-        <Button onClick={() => searchShop()}>Search</Button>
-      </div>
+      <input onChange={e => searchShop(e)} placeholder=" Search shop..." />
+
       <Grid.Row>
         {shops
-          .filter(shop => (searchTerm ? shop.name === searchTerm : true))
+          .filter(shop => {
+            return shop.name.toLowerCase().startsWith(searchTerm);
+          })
           .map(shop => (
             <Grid.Col key={shop.id} lg={4}>
               <ShopCard
