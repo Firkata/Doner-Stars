@@ -158,7 +158,7 @@ const ShopCard = data => {
         </SimpleModalLauncher>
       </div>
 
-      <img alt="shop" src="/aladin_foods.jpeg" />
+      <img alt="shop" width="250px" height="250px" src={`/${data.name}.jpg`} />
 
       {/* five star rating */}
       <Grid.Row className={styles.RatingRow}>
@@ -205,12 +205,13 @@ const ShopCard = data => {
         </Grid.Col>
       </Grid.Row>
 
+      {/* work time */}
       <Grid.Row className="w-100 mt-5">
         <Grid.Col lg="6">
           <b className="float-right">Working Days:</b>
         </Grid.Col>
         <Grid.Col className="d-flex" lg="6">
-          <b>Monday - Friday </b>
+          <b>{data.workDays}</b>
         </Grid.Col>
       </Grid.Row>
       <Grid.Row className="w-100 mt-4">
@@ -218,7 +219,7 @@ const ShopCard = data => {
           <b className="float-right">Working Hours:</b>
         </Grid.Col>
         <Grid.Col className="d-flex" lg="6">
-          <b>12-18pm </b>
+          <b>{data.workHours}</b>
         </Grid.Col>
       </Grid.Row>
 

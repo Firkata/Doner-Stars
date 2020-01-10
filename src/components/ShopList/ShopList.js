@@ -53,6 +53,8 @@ const ShopList = () => {
                 averageRating={shop.averageRating}
                 fetch={fetchShops}
                 users={shop.users}
+                workDays={shop.workDays}
+                workHours={shop.workHours}
               />
             </Grid.Col>
           ))}
